@@ -22,7 +22,11 @@ RUN apt-get update && apt-get install -y wget libgfortran5 libfftw3-dev fonts-de
   echo "export LiCSARpath=/opt/licsar_proc" >> ~/.bashrc && \
   echo "export PATH=\$PATH:\$LiCSARpath/bin:\$LiCSARpath/bin/orig:\$LiCSARpath/bin/scripts:\$LiCSARpath/python" >> ~/.bashrc && \
   echo "export PYTHONPATH=\$PYTHONPATH:\$LiCSARpath/python:\$LiCSARpath/python/LiCSAR_lib:\$LiCSARpath/python/LiCSAR_db" >> ~/.bashrc && \
-  echo "source activate py39" >> ~/.bashrc
+  echo "source activate py39" >> ~/.bashrc && \
+  # install snaphu
+  apt-get update && apt-get install -y build-essential && \
+  wget https://web.stanford.edu/group/radar/softwareandlinks/sw/snaphu/snaphu-v2.0.5.tar.gz && tar -xzf snaphu-v2.0.5.tar.gz && rm snaphu-v2.0.5.tar.gz && \
+  cd snaphu-v2.0.5/src && make -f Makefile && mkdir -p /usr/local/man/man1 && make install && cd
 ## Installing SNAP9
 ENV \
 URL="http://step.esa.int/downloads/9.0/installers" \
